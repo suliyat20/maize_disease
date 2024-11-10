@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maize Leaf Disease Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Maize Leaf Disease Detector</h1>
+        <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
+            <div class="file-input">
+                <input type="file" name="file" id="file" accept="image/*" required>
+                <label for="file">Choose an image</label>
+            </div>
+            <button type="submit">Detect Disease</button>
+        </form>
+    </div>
+</body>
+</html>
