@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+import tensorflow as tf
+tf.config.set_visible_devices([], 'GPU')
 import numpy as np
 import os
 
