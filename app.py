@@ -54,6 +54,13 @@ def predict():
 
         # Perform the prediction using the loaded model
         predictions = model.predict(img)
+        Blight, Common_Rust, Gray_Leaf_Spot, Healthy = predictions
+
+        has_maize_disease = (
+            Blight > 0.5
+            or Common_Rust > 0.5
+            or Gray_Leaf_Spot > 0.5
+        )
         print("Raw predictions:", predictions)
         predicted_class = np.argmax(predictions[0])
         print("Predicted class index:", predicted_class)
@@ -62,8 +69,10 @@ def predict():
 
         # Map the prediction to class labels
         confidence_threshold = 0.5
-        if np.max(predictions[0]) > confidence_threshold:
-            result = labels[predicted_class]
+        # if np.max(predictions[0]) > confidence_threshold:
+        #     result = labels[has_maize_disease]
+        if has_maize_disease:
+            result = labels[np.argmax[predictions[0]]
         else:
             result = "Uncertain prediction"
         # Render the result.html template, passing the prediction result and image path
