@@ -12,7 +12,6 @@ app = Flask(__name__)
 
 # Load your model
 model = load_model('./ResNet50.keras')
-print(model.summary())
 # Define a function to preprocess the uploaded image
 def preprocess_image(img_path):
     img = image.load_img(img_path, target_size=(260, 260))  # Resize the image to the model input size
@@ -80,9 +79,11 @@ def predict():
     else:
         result = "Uncertain prediction"
     # Render the result.html template, passing the prediction result and image path
-    return render_template('result.html', image_path=image, result=result)
+    return render_template('result.html', image_path=file_path, result=result)
     # print("Softmax output:", predictions)
     # print("Sum of probabilities:", np.sum(predictions))
 
+# if __name__ == "__main__":
+#     app.run(debug=True)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
