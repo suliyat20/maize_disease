@@ -53,7 +53,7 @@ def predict():
         img = preprocess_image(file_path)
 
         # Perform the prediction using the loaded model
-        predictions = model.predict(img)
+        predictions = model.predict(img)[0]
         Blight, Common_Rust, Gray_Leaf_Spot, Healthy = predictions
 
         has_maize_disease = (
@@ -62,23 +62,23 @@ def predict():
             or Gray_Leaf_Spot > 0.5
         )
         print("Raw predictions:", predictions)
-        predicted_class = np.argmax(predictions[0])
+        predicted_class = np.argmax(predictions)
         print("Predicted class index:", predicted_class)
         print("Predicted class label:", labels[predicted_class])
-        print("All class probabilities:", predictions[0])
+        print("All class probabilities:", predictions)
 
         # Map the prediction to class labels
         confidence_threshold = 0.5
-        # if np.max(predictions[0]) > confidence_threshold:
+        # if np.max(predictions) > confidence_threshold:
         #     result = labels[has_maize_disease]
         if has_maize_disease:
-            result = labels[np.argmax[predictions[0]]
+            result = labels[np.argmax[predictions]]
         else:
             result = "Uncertain prediction"
         # Render the result.html template, passing the prediction result and image path
         return render_template('result.html', image_path=file_path, result=result)
-        print("Softmax output:", predictions[0])
-        print("Sum of probabilities:", np.sum(predictions[0]))
+        print("Softmax output:", predictions)
+        print("Sum of probabilities:", np.sum(predictions))
 
 if __name__ == "__main__":
     app.run(debug=True)
